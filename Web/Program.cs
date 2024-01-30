@@ -2,9 +2,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Web.Configurations;
 
-
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -28,6 +26,5 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    pattern: "{area=Visitor}/{controller=Home}/{action=Index}/{id?}");
 app.Run();

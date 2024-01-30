@@ -1,11 +1,10 @@
-﻿using DataAccess.Data;
-using DataAccess.Repository.IRepository;
+﻿using DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models.DataModels;
 
-
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

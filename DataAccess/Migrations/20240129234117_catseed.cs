@@ -7,7 +7,7 @@
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initlib : Migration
+    public partial class catseed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,9 +31,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "DisplayOrder", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, "Action" },
-                    { 2, 2, "Sci-Fi" },
-                    { 3, 3, "History" }
+                    { 1000, 1, "Art" },
+                    { 2000, 2, "History" },
+                    { 3000, 3, "Technology" },
+                    { 4000, 4, "Sports" }
                 });
         }
 

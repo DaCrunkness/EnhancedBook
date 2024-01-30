@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Configurations.Entities;
+using Microsoft.EntityFrameworkCore;
 using Models.DataModels;
 
 namespace DataAccess.Data
@@ -12,11 +13,8 @@ namespace DataAccess.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
-                new Category { Id = 2, Name = "Sci-Fi", DisplayOrder = 2 },
-                new Category { Id = 3, Name = "History", DisplayOrder = 3 }
-                );
+            modelBuilder.ApplyConfiguration(new CategorySeed());
+
         }
 
         public DbSet<Category> Categories { get; set; }

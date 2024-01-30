@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Repository\" />
+		<Folder Include="Configurations\DbInitializer\" />
 	</ItemGroup>
 
 	<ItemGroup>

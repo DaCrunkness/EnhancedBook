@@ -44,21 +44,27 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 1000,
                             DisplayOrder = 1,
-                            Name = "Action"
+                            Name = "Art"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 2000,
                             DisplayOrder = 2,
-                            Name = "Sci-Fi"
+                            Name = "History"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 3000,
                             DisplayOrder = 3,
-                            Name = "History"
+                            Name = "Technology"
+                        },
+                        new
+                        {
+                            Id = 4000,
+                            DisplayOrder = 4,
+                            Name = "Sports"
                         });
                 });
 #pragma warning restore 612, 618

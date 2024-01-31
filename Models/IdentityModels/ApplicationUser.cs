@@ -1,6 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Models.DataModels;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models.IdentityModels
@@ -20,5 +23,8 @@ namespace Models.IdentityModels
         public string? Role { get; set; }
         [NotMapped]
         public IEnumerable<SelectListItem>? RoleList { get; set; }
+        public int? CompanyId { get; set; }
+        [ValidateNever]
+        public Company Company { get; set; }
     }
 }

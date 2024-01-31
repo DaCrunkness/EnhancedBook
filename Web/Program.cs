@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Web.Configurations;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Blaze.Configurations.MailJet;
+using DataAccess.Configurations.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -41,6 +42,7 @@ builder.Services.ConfigureApplicationCookie(options => {
 
 //builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, MailJetEmailSender>();
 var app = builder.Build();
@@ -60,7 +62,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 //app.UseSession();
-//SeedDatabase();
+SeedDatabase();
 app.MapRazorPages();
 
 app.MapControllerRoute(
@@ -68,11 +70,11 @@ app.MapControllerRoute(
     pattern: "{area=Visitor}/{controller=Home}/{action=Index}/{id?}");
 app.Run();
 
-//void SeedDatabase()
-//{
-//    using (var scope = app.Services.CreateScope())
-//    {
-//        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-//        dbInitializer.Initialize();
-//    }
-//}
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

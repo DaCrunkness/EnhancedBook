@@ -11,26 +11,26 @@ namespace Web.Configurations
 {
     public static class ServiceExtensions
     {
-        public static void ConfigureDependencies(this IServiceCollection services)
-        {
-            
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            //services.AddScoped<IDbInitializer, DbInitializer>();
+        //public static void ConfigureDependencies(this IServiceCollection services)
+        //{
 
-        }
+        //    services.AddTransient<IUnitOfWork, UnitOfWork>();
+        //    //services.AddScoped<IDbInitializer, DbInitializer>();
+
+        //}
 
         public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddCascadingAuthenticationState();
-            
+            //services.AddCascadingAuthenticationState();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-            })
-                .AddIdentityCookies();
+
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultScheme = IdentityConstants.ApplicationScheme;
+            //    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            //})
+            //    .AddIdentityCookies();
 
             var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<DataContext>(options =>

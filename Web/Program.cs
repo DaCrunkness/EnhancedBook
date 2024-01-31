@@ -6,6 +6,7 @@ using Models.IdentityModels;
 using Microsoft.EntityFrameworkCore;
 using Web.Configurations;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Blaze.Configurations.MailJet;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -40,7 +41,7 @@ builder.Services.AddSession(options => {
 //builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-//builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

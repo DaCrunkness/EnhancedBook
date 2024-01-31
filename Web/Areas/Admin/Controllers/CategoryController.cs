@@ -14,7 +14,7 @@ namespace Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> categoryList = _unitOfWork.Category.GetEvery().ToList();
+            List<Category> categoryList = _unitOfWork.Category.GetAll().ToList();
             return View(categoryList);
         }
 
@@ -37,7 +37,7 @@ namespace Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Create(category);
+                _unitOfWork.Category.Add(category);
                 _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction(nameof(Index));

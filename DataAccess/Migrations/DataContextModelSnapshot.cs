@@ -80,11 +80,18 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -106,6 +113,8 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -113,8 +122,10 @@ namespace DataAccess.Migrations
                         {
                             Id = 1000,
                             Author = "Smithovision",
+                            CategoryId = 1000,
                             Description = "It begins with this one",
                             ISBN = "84267913",
+                            ImageUrl = "",
                             ListPrice = 40.0,
                             Price = 40.0,
                             Price100 = 20.0,
@@ -125,8 +136,10 @@ namespace DataAccess.Migrations
                         {
                             Id = 2000,
                             Author = "Smithovision",
+                            CategoryId = 2000,
                             Description = "Right hand man to the main man",
                             ISBN = "258687913",
+                            ImageUrl = "",
                             ListPrice = 40.0,
                             Price = 40.0,
                             Price100 = 20.0,
@@ -137,8 +150,10 @@ namespace DataAccess.Migrations
                         {
                             Id = 3000,
                             Author = "Smithovision",
+                            CategoryId = 3000,
                             Description = "The trio to the pack",
                             ISBN = "123456789",
+                            ImageUrl = "",
                             ListPrice = 40.0,
                             Price = 40.0,
                             Price100 = 20.0,
@@ -149,14 +164,27 @@ namespace DataAccess.Migrations
                         {
                             Id = 4000,
                             Author = "Smithovision",
+                            CategoryId = 4000,
                             Description = "A new product the fourth to be added",
                             ISBN = "789456123",
+                            ImageUrl = "",
                             ListPrice = 40.0,
                             Price = 40.0,
                             Price100 = 20.0,
                             Price50 = 30.0,
                             Title = "Product 4"
                         });
+                });
+
+            modelBuilder.Entity("Models.DataModels.Product", b =>
+                {
+                    b.HasOne("Models.DataModels.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

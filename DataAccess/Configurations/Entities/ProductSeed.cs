@@ -19,9 +19,9 @@ namespace DataAccess.Configurations.Entities
                     ListPrice = 40,
                     Price = 40,
                     Price50 = 30,
-                    Price100 = 20
-                    
-
+                    Price100 = 20,
+                    CategoryId = 1000,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -33,7 +33,9 @@ namespace DataAccess.Configurations.Entities
                     ListPrice = 40,
                     Price = 40,
                     Price50 = 30,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 2000,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -45,7 +47,9 @@ namespace DataAccess.Configurations.Entities
                     ListPrice = 40,
                     Price = 40,
                     Price50 = 30,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 3000,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -57,7 +61,9 @@ namespace DataAccess.Configurations.Entities
                     ListPrice = 40,
                     Price = 40,
                     Price50 = 30,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 4000,
+                    ImageUrl = ""
                 }
                 );
         }

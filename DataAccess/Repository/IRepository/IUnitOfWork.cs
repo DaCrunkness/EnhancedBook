@@ -4,8 +4,12 @@
     {
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
-        IApplicationUserRepository ApplicationUser { get; }
         ICompanyRepository Company { get; }
+        IShoppingCartRepository ShoppingCart { get; }
+        IApplicationUserRepository ApplicationUser { get; }
+        IOrderDetailRepository OrderDetail { get; }
+        IOrderHeaderRepository OrderHeader { get; }
+        IProductImageRepository ProductImage { get; }
 
         Task Save();
     }

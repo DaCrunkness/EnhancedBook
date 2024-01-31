@@ -126,7 +126,29 @@ namespace Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!_roleManager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
+            {
+                await _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer));
+                await _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee));
+                await _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
+                await _roleManager.CreateAsync(new IdentityRole(SD.Role_Company));
 
+                ApplicationUser adminUser = new ApplicationUser
+                {
+                    UserName = "admin@test.com",
+                    Email = "admin@test.com",
+                    Name = "Young Rell",
+                    PhoneNumber = "1112223333",
+                    StreetAddress = "test 123 Ave",
+                    State = "LA",
+                    PostalCode = "23422",
+                    City = "Shreveport",
+                    EmailConfirmed = true,
+                };
+                //if roles are not created, then we will create admin user as well
+                await _userManager.CreateAsync(adminUser, "Pass1234!");
+                await _userManager.AddToRoleAsync(adminUser, SD.Role_Admin);
+            }
 
             Input = new()
             {
@@ -135,7 +157,6 @@ namespace Web.Areas.Identity.Pages.Account
                     Text = i,
                     Value = i
                 })
-                
             };
 
             ReturnUrl = returnUrl;
@@ -226,8 +247,8 @@ namespace Web.Areas.Identity.Pages.Account
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }

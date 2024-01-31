@@ -21,6 +21,7 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.LoginPath = $"/Identity/Account/Login";
     options.LogoutPath = $"/Identity/Account/Logout";
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+    
 });
 //builder.Services.AddAuthentication().AddFacebook(option => {
 //    option.AppId = "193813826680436";
@@ -31,17 +32,17 @@ builder.Services.ConfigureApplicationCookie(options => {
 //    option.ClientSecret = "qMW8Q~LlEEZST~SDxDgcEVx_45LJQF2cQ_rEKcSQ";
 //});
 
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options => {
-    options.IdleTimeout = TimeSpan.FromMinutes(100);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+//builder.Services.AddDistributedMemoryCache();
+//builder.Services.AddSession(options => {
+//    options.IdleTimeout = TimeSpan.FromMinutes(100);
+//    options.Cookie.HttpOnly = true;
+//    options.Cookie.IsEssential = true;
+//});
 
 //builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddTransient<IEmailSender, MailJetEmailSender>();
+builder.Services.AddScoped<IEmailSender, MailJetEmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,7 +59,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
+//app.UseSession();
 //SeedDatabase();
 app.MapRazorPages();
 

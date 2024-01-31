@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -34,18 +35,21 @@ namespace Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
+            IUnitOfWork unitOfWork,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _userStore = userStore;
+            _unitOfWork = unitOfWork;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
@@ -126,36 +130,17 @@ namespace Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            //if (!_roleManager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
-            //{
-            //    await _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer));
-            //    await _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee));
-            //    await _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
-            //    await _roleManager.CreateAsync(new IdentityRole(SD.Role_Company));
-
-            //    ApplicationUser adminUser = new ApplicationUser
-            //    {
-            //        UserName = "admin@test.com",
-            //        Email = "admin@test.com",
-            //        Name = "Young Rell",
-            //        PhoneNumber = "1112223333",
-            //        StreetAddress = "test 123 Ave",
-            //        State = "LA",
-            //        PostalCode = "23422",
-            //        City = "Shreveport",
-            //        EmailConfirmed = true,
-            //    };
-            //    //if roles are not created, then we will create admin user as well
-            //    await _userManager.CreateAsync(adminUser, "Pass1234!");
-            //    await _userManager.AddToRoleAsync(adminUser, SD.Role_Admin);
-            //}
-
             Input = new()
             {
                 RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
                 {
                     Text = i,
                     Value = i
+                }),
+                CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
                 })
             };
 
@@ -180,10 +165,10 @@ namespace Web.Areas.Identity.Pages.Account
                 user.PostalCode = Input.PostalCode;
                 user.PhoneNumber = Input.PhoneNumber;
 
-                //if (Input.Role == SD.Role_Company)
-                //{
-                //    user.CompanyId = Input.CompanyId;
-                //}
+                if (Input.Role == SD.Role_Company)
+                {
+                    user.CompanyId = Input.CompanyId;
+                }
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

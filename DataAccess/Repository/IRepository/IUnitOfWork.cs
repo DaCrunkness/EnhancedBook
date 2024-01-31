@@ -4,6 +4,7 @@
     {
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
+        IApplicationUserRepository ApplicationUser { get; }
 
         Task Save();
     }

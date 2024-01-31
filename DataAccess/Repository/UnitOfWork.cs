@@ -12,6 +12,7 @@ namespace DataAccess.Repository
             _db = db;
             Category = new CategoryRepository(_db);
             Product = new ProductRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
         }
 
         public async Task Save()
@@ -27,5 +28,6 @@ namespace DataAccess.Repository
 
         public ICategoryRepository Category { get; private set; }
         public IProductRepository Product { get; private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
     }
 }

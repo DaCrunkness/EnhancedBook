@@ -12,8 +12,6 @@ namespace DataAccess.Repository
             _db = db;
         }
 
-
-
         public void Update(OrderHeader obj)
         {
             _db.OrderHeaders.Update(obj);
@@ -34,16 +32,24 @@ namespace DataAccess.Repository
 
         public void UpdateStripePaymentID(int id, string sessionId, string paymentIntentId)
         {
-            var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.Id == id);
-            if (!string.IsNullOrEmpty(sessionId))
+            if (id != null | id < 1)
             {
-                orderFromDb.SessionId = sessionId;
+                //Create new session
             }
-            if (!string.IsNullOrEmpty(paymentIntentId))
+            else
             {
-                orderFromDb.PaymentIntentId = paymentIntentId;
-                orderFromDb.PaymentDate = DateTime.Now;
+                var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.Id == id);
+                if (!string.IsNullOrEmpty(sessionId))
+                {
+                    orderFromDb.SessionId = sessionId;
+                }
+                if (!string.IsNullOrEmpty(paymentIntentId))
+                {
+                    orderFromDb.PaymentIntentId = paymentIntentId;
+                    orderFromDb.PaymentDate = DateTime.Now;
+                }
             }
+            
         }
     }
 }

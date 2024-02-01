@@ -28,7 +28,7 @@ namespace DataAccess.Repository
             IQueryable<T> query;
             if (tracked)
             {
-                query =  _dbSet;
+                query = _dbSet;
 
             }
             else
